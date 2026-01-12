@@ -1,0 +1,84 @@
+.editor-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* The actual editor content area */
+.ProseMirror {
+  width: 8.5in; /* US Letter width */
+  min-height: 11in; /* US Letter height */
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1in; /* 1in margins */
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Times New Roman', serif;
+  font-size: 12pt;
+  line-height: 1.5;
+}
+
+/* Page Break Widget */
+.page-break-widget {
+  height: 20px;
+  background-color: #f3f4f6; /* Match body background */
+  margin-left: -1in; /* Counteract editor padding */
+  margin-right: -1in; /* Counteract editor padding */
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 12px;
+  font-family: sans-serif;
+  user-select: none;
+  pointer-events: none; /* Allow clicking through */
+}
+
+.page-break-widget::after {
+  content: attr(data-page-number);
+  position: absolute;
+  right: 4.5in;
+  bottom: -20px; /* Position page number on the next page */
+  color: #6b7280;
+  font-size: 12pt;
+  font-weight: 600;
+  line-height: 1;
+  background: rgba(255,255,255,0.95);
+  padding: 0 4px;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+  }
+  
+  .editor-container {
+    padding: 0;
+    display: block;
+  }
+
+  .ProseMirror {
+    width: 100%;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .page-break-widget {
+    height: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    page-break-after: always;
+    visibility: hidden; /* Hide the visual gap */
+  }
+  
+  @page {
+    size: letter;
+    margin: 1in;
+  }
+}
