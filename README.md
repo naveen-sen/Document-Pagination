@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Pagination
+### Approach
+
+Page breaks are calculated by measuring the rendered positions and heights of top-level editor blocks in the DOM. When content crosses a page boundary, a visual page-break decoration is inserted before the block that starts on the next page. Pagination updates are scheduled after layout changes to ensure measurements reflect the final rendered state.
+
+### Trade-offs & Limitations
+
+This approach relies on DOM measurements, which can vary with fonts, zoom levels, and asynchronously loaded content. Pagination operates at the block level, so large blocks are not split across pages. Page breaks are implemented as visual decorations rather than true page containers, which limits support for per-page headers, footers, or layout differences.
+
+### Future Improvements
+
+With more time, pagination could be made more precise by accounting for block heights and bottom positions, improving performance through debounced measurements and observers, and moving toward true page containers for better print parity and per-page layout control.
